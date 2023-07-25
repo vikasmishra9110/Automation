@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Magento" parralel="tests" thread-count="3">
+	<listeners>
+		<listener class-name="nagp.selenium.utils.ListenersImplementation" />
+	</listeners>
+	
+	<test name="MagentoTest1">
+		<groups>
+		<run>
+			<include name="Parallel"/>
+		</run>
+	</groups>
+		<parameter name="firstName" value="testuser1" />
+		<parameter name="lastName" value="testlastname123" />
+		<parameter name="email" value="test0001email1" />
+		<parameter name="password" value="@Mypassword91" />
+		<classes>
+			<class name="nagp.selenium.tests.HomePageTest" />
+		</classes>
+	</test>
+	<test name="MagentoTest2">
+		<groups>
+		<run>
+			<include name="Parallel"/>
+		</run>
+	</groups>
+		<parameter name="firstName" value="testuser2" />
+		<parameter name="lastName" value="testlastname123" />
+		<parameter name="email" value="test0002email1" />
+		<parameter name="password" value="@Mypassword91" />
+		<classes>
+			<class name="nagp.selenium.tests.HomePageTest" />
+		</classes>
+	</test>
+	<groups>
+		<run>
+			<include name="Parallel"/>
+		</run>
+	</groups>
+	<test name="MagentoTest3">
+		<parameter name="firstName" value="testuser3" />
+		<parameter name="lastName" value="test2astname123" />
+		<parameter name="email" value="test0003email1" />
+		<parameter name="password" value="@Mypassword91" />
+		<classes>
+			<class name="nagp.selenium.tests.HomePageTest" />
+		</classes>
+	</test>
+</suite>

@@ -1,0 +1,35 @@
+2023-04-28 19:57:48,823 [main] INFO  nagp.selenium.utils.BaseTest - Selected browser is Chrome
+2023-04-28 19:57:56,643 [main] INFO  nagp.selenium.utils.ListenersImplementation - Setting the Extent report data
+2023-04-28 19:57:56,854 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of logo on Home page
+2023-04-28 19:58:02,494 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : testuser1
+2023-04-28 19:58:02,674 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : testlastname123
+2023-04-28 19:58:02,813 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : test0002email10.07136439114821647@gmail.com
+2023-04-28 19:58:22,020 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:58:22,021 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 19:58:43,325 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 19:58:44,004 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:58:44,005 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 19:58:52,136 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 19:58:52,801 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:58:52,801 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 19:58:59,097 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 19:58:59,760 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:58:59,760 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 19:59:06,309 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 19:59:06,974 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:59:06,975 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 19:59:16,253 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 19:59:27,844 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has landed on Jackets listing page
+2023-04-28 19:59:27,844 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to select apparel
+2023-04-28 19:59:28,155 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to select apparel of Size L
+2023-04-28 19:59:28,359 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to select apparel of Color Blue
+2023-04-28 19:59:28,445 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to selected apparel to cart
+2023-04-28 19:59:28,495 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:59:35,564 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:59:40,266 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:59:45,930 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 19:59:49,141 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:00:01,143 [main] INFO  nagp.selenium.pageactions.HomePageAction - User is searching apparel : Tshirt
+2023-04-28 20:00:09,645 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has landed on search result page
+2023-04-28 20:00:12,056 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been logged out
+2023-04-28 20:00:12,056 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of sign out success message

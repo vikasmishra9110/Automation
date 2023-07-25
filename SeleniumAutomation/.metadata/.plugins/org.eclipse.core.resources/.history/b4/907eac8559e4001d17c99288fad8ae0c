@@ -1,0 +1,32 @@
+package nagp.selenium.pageobjects;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class HomePageObjects {
+@FindBy(xpath="//a[@class='logo']")
+public WebElement logo;
+@FindBy(xpath="(//button[@data-action='customer-menu-toggle'])[1]")
+public WebElement loggedInUserLink;
+@FindBy(xpath="(//a[contains(text(),'Sign Out')])[1]")
+public WebElement signOutButton;
+@FindBy(id="newsletter")
+public WebElement subscriptionEmailBox;
+@FindBy(xpath="//span[text()='Subscribe']")
+public WebElement subscribeButton;
+@FindBy(xpath="//div[text()='Thank you for your subscription.']")
+public WebElement subscriptionSucessMessage;
+@FindBy(xpath="//a[contains(@class,'level-top ui-corner-all')]")
+public List<WebElement> menuItems;
+@FindBy(xpath="//span[text()='Men']")
+public WebElement menMenuItem;
+@FindBy(xpath="//span[text()='Tops']")
+public WebElement TopsMenuItem;
+@FindBy(xpath="//span[text()='Jackets']")
+public WebElement jacketsMenuItem;
+@FindBy(xpath="//div[contains(@id,'option-label-size') and @aria-label='L']")
+public List<WebElement> apparelWithLSize;
+
+}

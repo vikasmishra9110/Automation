@@ -1,0 +1,57 @@
+package nagp.selenium.utils;
+
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.apache.logging.log4j.Logger;
+
+public class BaseTest {
+	private static final Logger LOGGER = LogManager.getLogger(BaseTest.class);
+	public static PropertyReader propertyReader;
+	public WebDriver driver;
+	static {
+		try {
+			propertyReader = PropertyReader.getProperyReaderInstance();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public WebDriver launchBrowser() {
+
+		switch (PropertyReader.getValue("Browser")) {
+
+		case "Chrome":
+			ChromeOptions chromeOptions = new ChromeOptions();
+			// chromeOptions.addArguments("--window-size=1920,1080");
+			chromeOptions.addArguments("start-maximized");
+			chromeOptions.addArguments("--remote-allow-origins=*");
+			driver = new ChromeDriver(chromeOptions);
+			LOGGER.info("Selected browser is Chrome");
+			break;
+
+		case "Firefox":
+			driver = new FirefoxDriver();
+			LOGGER.info("Selected browser is Firefox");
+			break;
+
+		case "Edge":
+			EdgeOptions edgeOptions = new EdgeOptions();
+			edgeOptions.addArguments("--window-size=1920,1080");
+			edgeOptions.addArguments("start-maximized");
+			driver = new EdgeDriver();
+			LOGGER.info("Selected browser is Edge");
+			break;
+		}
+		return driver;
+	}
+
+}

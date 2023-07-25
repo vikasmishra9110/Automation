@@ -1,0 +1,75 @@
+2023-04-28 20:13:55,788 [main] INFO  nagp.selenium.utils.BaseTest - Selected browser is Chrome
+2023-04-28 20:14:05,025 [main] INFO  nagp.selenium.utils.ListenersImplementation - Setting the Extent report data
+2023-04-28 20:14:05,228 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of logo on Home page
+2023-04-28 20:14:11,052 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : testuser1
+2023-04-28 20:14:11,366 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : testlastname123
+2023-04-28 20:14:11,536 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : test0002email10.4374046762531745@gmail.com
+2023-04-28 20:14:45,006 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:14:45,007 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 20:15:05,276 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 20:15:05,930 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:15:05,930 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 20:15:15,300 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 20:15:15,947 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:15:15,947 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 20:15:51,163 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 20:15:51,795 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:15:51,795 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 20:16:07,047 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 20:16:07,710 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:16:07,711 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been scrolled down to the newsletter subscribtion box
+2023-04-28 20:16:21,151 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of Subscribe newsletter success message
+2023-04-28 20:16:33,422 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has landed on Jackets listing page
+2023-04-28 20:16:33,422 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to select apparel
+2023-04-28 20:16:33,654 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to select apparel of Size L
+2023-04-28 20:16:33,794 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to select apparel of Color Blue
+2023-04-28 20:16:33,888 [main] INFO  nagp.selenium.pageactions.ApparelPageActions - User going to selected apparel to cart
+2023-04-28 20:16:33,934 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:16:40,985 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - Scroll to webelement has been successfull
+2023-04-28 20:17:03,152 [main] ERROR nagp.selenium.pageactions.ApparelPageActions - Some error has encounetred while placing order
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of [[ChromeDriver: chrome on WINDOWS (87cc5ba0a62057bb350d7aa1814f856f)] -> xpath: //button[text()='Proceed to Checkout']] (tried for 20 second(s) with 500 milliseconds interval)
+Build info: version: '4.7.2', revision: '4d4020c3b7'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.6'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 112.0.5615.138, chrome: {chromedriverVersion: 112.0.5615.49 (bd2a7bcb881c..., userDataDir: C:\Users\PRIYAN~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:61288}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:61288/devtoo..., se:cdpVersion: 112.0.5615.138, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 87cc5ba0a62057bb350d7aa1814f856f
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:87) ~[selenium-support-4.7.2.jar:?]
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231) ~[selenium-support-4.7.2.jar:?]
+	at nagp.selenium.utils.SeleniumUtils.clickElementByJse(SeleniumUtils.java:159) ~[test-classes/:?]
+	at nagp.selenium.pageactions.ApparelPageActions.completeOrder(ApparelPageActions.java:61) ~[test-classes/:?]
+	at nagp.selenium.tests.HomePageTest.validatePurchaseApparel(HomePageTest.java:114) ~[test-classes/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115) ~[testng-remote.jar:?]
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251) ~[testng-remote.jar:?]
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77) ~[testng-remote.jar:?]
+2023-04-28 20:17:03,172 [main] INFO  nagp.selenium.pageactions.HomePageAction - User is searching apparel : Tshirt
+2023-04-28 20:17:10,190 [main] ERROR nagp.selenium.pageactions.HomePageAction - Some error has encounetred while navigating on search result page
+2023-04-28 20:17:16,815 [main] INFO  nagp.selenium.pageactions.HomePageAction - User has been logged out
+2023-04-28 20:17:16,815 [main] INFO  nagp.selenium.pageactions.HomePageAction - Checking presence of sign out success message
+2023-04-28 20:17:22,038 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : testuser1
+2023-04-28 20:17:22,240 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : testlastname123
+2023-04-28 20:17:22,424 [main] INFO  nagp.selenium.pageactions.CreateAccountPageActions - First name of new user is : test123@gmail.com

@@ -1,0 +1,154 @@
+package nagp.selenium.utils;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.testng.IAnnotationTransformer;
+import org.testng.IRetryAnalyzer;
+import org.testng.ISuiteListener;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.ITestAnnotation;
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
+public class ListenersImplementation implements ITestListener, ISuiteListener,IAnnotationTransformer {
+	private static final Logger LOGGER = LogManager.getLogger(ListenersImplementation.class);
+	ExtentHtmlReporter extentHTMLReporter;
+	ExtentReports extentReports;
+	ExtentTest extentTest;
+	String reportPath = reportPath = System.getProperty("user.dir") + "\\CurrentTestResultData";;
+
+	public void onStart(ITestContext result) {
+		moveLastRunFilesinArchiveFolder1();
+		// Configure log4j to use the configuration file
+		// Configurator.initialize(null, "log4j2.xml");
+		LOGGER.info("Setting the Extent report data");
+		extentHTMLReporter = new ExtentHtmlReporter(reportPath + "\\" + result.getName()
+				+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".html");
+		extentHTMLReporter.config().setReportName(result.getName() + " Report");
+		extentHTMLReporter.config().setDocumentTitle(result.getName());
+		extentHTMLReporter.config().setTheme(Theme.DARK);
+		extentReports = new ExtentReports();
+		extentReports.attachReporter(extentHTMLReporter);
+		extentReports.setSystemInfo("Host name", "localhost");
+		extentReports.setSystemInfo("Environemnt", "QA");
+		extentReports.setSystemInfo("user", "Vikas");
+	}
+
+	public void onTestStart(ITestResult result) {
+		extentTest = extentReports.createTest(result.getName());
+	}
+
+	public void onFinish(ITestContext arg0) {
+		extentReports.flush();
+	}
+
+	public void onTestSuccess(ITestResult result) {
+		extentTest.log(Status.PASS, result.getName());
+	}
+
+	public void onTestFailure(ITestResult result) {
+		extentTest.log(Status.FAIL, result.getName());
+		extentTest.log(Status.FAIL, result.getThrowable());
+		try {
+			extentTest.addScreenCaptureFromPath(reportPath+"\\"+result.getName()+".png");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void onTestSkipped(ITestResult result) {
+		extentTest.log(Status.SKIP, result.getName());
+		extentTest.log(Status.SKIP, result.getThrowable());
+	}
+
+	public void moveLastRunFilesinArchiveFolder() throws IOException {
+		try {
+			File sourceFolder = new File(reportPath);
+			File destinationFolder = new File(System.getProperty("user.dir") + "\\ArchivedDataFolder");
+
+			// Create destination folder if it doesn't exist
+			if (!destinationFolder.exists()) {
+				destinationFolder.mkdirs();
+			}
+
+			// Get list of files in source folder
+			File[] files = sourceFolder.listFiles();
+
+			// Move each file to destination folder
+			for (File file : files) {
+				File newFile = new File(destinationFolder.getAbsolutePath() + File.separator + file.getName());
+				Files.move(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				System.out.println("Moved file " + file.getName() + " to " + newFile.getAbsolutePath());
+			}
+		} catch (Exception e) {
+			LOGGER.error("Some error encountered while moving current set of result to archied folder", e);
+		}
+	}
+
+	public void moveLastRunFilesinArchiveFolder1() {
+		try {
+			File sourceFolder = new File(reportPath);
+			File destinationFolder = new File(System.getProperty("user.dir") + "\\ArchivedDataFolder");
+
+			// Create destination folder if it doesn't exist
+			if (!destinationFolder.exists()) {
+				destinationFolder.mkdirs();
+			}
+
+			// Get list of files in source folder
+			File[] files = sourceFolder.listFiles();
+
+			// Move each file to destination folder
+			for (File file : files) {
+				if (!file.isFile()) {
+					continue; // Skip directories
+				}
+
+				// Check if file is in use
+				if (file.renameTo(file)) {
+					// File is not in use, move it
+					File newFile = new File(destinationFolder.getAbsolutePath() + File.separator + file.getName());
+					Files.move(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					System.out.println("Moved file " + file.getName() + " to " + newFile.getAbsolutePath());
+				} else {
+					// File is in use, skip it
+					System.out.println("Skipping file " + file.getName() + " because it is currently in use");
+				}
+			}
+		} catch (Exception e) {
+			LOGGER.error("Some error encountered while moving current set of result to archived folder", e);
+		}
+	}
+
+	    @Override
+	    public void transform(ITestAnnotation testAnnotation, Class testClass, Constructor testConstructor, Method testMethod) {
+	        Class<? extends IRetryAnalyzer> retryAnalyzer = testAnnotation.getRetryAnalyzerClass();
+	        if (retryAnalyzer == null) {
+	            testAnnotation.setRetryAnalyzer(RetryAnalyzer.class);
+	        }
+	    }
+	
+}

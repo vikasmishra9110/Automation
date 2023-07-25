@@ -1,0 +1,110 @@
+package nagp.selenium.utils;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.ISuiteListener;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.annotations.BeforeSuite;
+import org.apache.commons.io.FileUtils;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
+public class ListenersImplementation extends BaseTest implements ITestListener,ISuiteListener{
+	private static final Logger LOGGER = LoggerFactory.getLogger(ListenersImplementation.class);
+	ExtentHtmlReporter extentHTMLReporter;
+	ExtentReports extentReports;
+	ExtentTest extentTest;
+	 String reportPath =reportPath=System.getProperty("user.dir")+"\\CurrentTestResult";;
+	public void onStart(ITestContext result) {
+		try {
+			moveLastRunFilesinArchiveFolder();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		LOGGER.info("Setting the Extent report data");
+		extentHTMLReporter=new ExtentHtmlReporter(reportPath+"\\"+result.getName()+LocalTime.now()+".html");
+		extentHTMLReporter.config().setReportName(result.getName()+" Report");
+		extentHTMLReporter.config().setDocumentTitle(result.getName());
+		extentHTMLReporter.config().setTheme(Theme.DARK);
+		extentReports=new ExtentReports();
+		extentReports.attachReporter(extentHTMLReporter);
+		extentReports.setSystemInfo("Host name", "localhost");
+		extentReports.setSystemInfo("Environemnt", "QA");
+		extentReports.setSystemInfo("user", "Vikas");
+	}
+	
+	public void onTestStart(ITestResult result) {
+		extentTest=extentReports.createTest(result.getName());
+	}
+	
+	public void onFinish(ITestContext arg0) {
+	extentReports.flush();
+	}
+	
+	public void onTestSuccess(ITestResult result) {
+		extentTest.log(Status.PASS, result.getName());
+	}
+public void onTestFailure(ITestResult result) {
+	extentTest.log(Status.FAIL, result.getName());
+	extentTest.log(Status.FAIL, result.getThrowable());
+	try {
+		extentTest.addScreenCaptureFromPath(takeScreenshotMethod(driver, result.getName()+LocalDateTime.now()));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	}
+public void onTestSkipped(ITestResult result) {
+	extentTest.log(Status.SKIP, result.getName());
+	extentTest.log(Status.SKIP, result.getThrowable());
+}
+
+public String takeScreenshotMethod(WebDriver driver,String name) throws IOException {
+	TakesScreenshot takescreenshot = ((TakesScreenshot)driver);
+	File srcFile = takescreenshot.getScreenshotAs(OutputType.FILE);
+	String destinationPath = System.getProperty("user.dir")+"\\Current Test Results\\"+name+".png";
+	File descFile=   new File(destinationPath);
+    FileUtils.copyFile(srcFile, descFile);
+    return destinationPath;
+}
+public void moveLastRunFilesinArchiveFolder() throws IOException {
+	try {
+	 File sourceFolder = new File(reportPath);
+     File destinationFolder = new File(System.getProperty("user.dir")+"\\Archived Folder");
+     
+     // Create destination folder if it doesn't exist
+     if (!destinationFolder.exists()) {
+         destinationFolder.mkdirs();
+     }
+     
+     // Get list of files in source folder
+     File[] files = sourceFolder.listFiles();
+     
+     // Move each file to destination folder
+     for (File file : files) {
+         File newFile = new File(destinationFolder.getAbsolutePath() + File.separator + file.getName());
+         Files.move(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+         System.out.println("Moved file " + file.getName() + " to " + newFile.getAbsolutePath());
+     }
+ }catch(Exception e) {
+	 LOGGER.error("Some error encountered while moving current set of result to archied folder",e);
+ }
+	}
+}

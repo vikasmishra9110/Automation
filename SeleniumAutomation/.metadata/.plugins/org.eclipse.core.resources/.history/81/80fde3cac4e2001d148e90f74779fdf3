@@ -1,0 +1,90 @@
+package nagp.selenium.tests;
+
+import java.io.IOException;
+
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+import org.testng.asserts.SoftAssert;
+
+import nagp.selenium.pageactions.CreateAccountPageActions;
+import nagp.selenium.pageactions.HomePageAction;
+import nagp.selenium.utils.BaseTest;
+import nagp.selenium.utils.PropertyReader;
+import nagp.selenium.utils.SeleniumUtils;
+
+public class HomePageTest extends BaseTest {
+	HomePageAction homePageActions;
+	CreateAccountPageActions createAccountPageActions;
+	SoftAssert sAssert;
+	@BeforeClass
+	public void launchActivity() {
+		launchBrowser();
+		homePageActions=new HomePageAction(driver);
+		createAccountPageActions=new CreateAccountPageActions(driver);
+		driver.get(PropertyReader.getValue("appUrl"));
+		new SoftAssert();
+	}
+	@Test(description = "check logo on home page", priority   = 1)
+	public void checkHomePageLogoPresent() throws IOException {
+		boolean flag = homePageActions.checkLogoHomePage();
+		if(!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "checkHomePageLogoPresent");
+			sAssert.assertTrue(false,"Home page logo is not present");
+			sAssert.assertAll();
+		}
+	}
+	@Test(description = "Create new user on the account",priority = 2)
+	@Parameters({"firstName","lastName","email","password"})
+	public void createNewUser(String firstName,String lastName,String email, String password) throws IOException {
+		createAccountPageActions.createNewUser(firstName, lastName, email, password);
+		boolean flag = createAccountPageActions.checkCreateNewAccountConfirmationMessage();
+		if(!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "createNewUser");
+			sAssert.assertTrue(false,"Create new user has been failed");
+			sAssert.assertAll();
+		}
+	}
+	@Test(description = "Create new user for an existing user",priority = 3)
+	@Parameters({"firstName","lastName","email","password"})
+	public void createNewUserForExistingUser(String firstName,String lastName,String email, String password) throws IOException {
+		homePageActions.logout();
+		createAccountPageActions.createNewUser(firstName, lastName, email, password);
+		boolean flag = createAccountPageActions.checkErrorMessageForExistingUserAccountCreation();
+		if(!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "createNewUserForExistingUser");
+			sAssert.assertTrue(false,"Error message for already existing account did not come");
+			sAssert.assertAll();
+		}
+		
+	}
+	@Test(description = "This test is to validate the newsletter subscription for list of emailid",priority = 4,dataProvider = "emailIdData")
+	public void subscribeNewsletter(String emailIdData) {
+		homePageActions.subscribeNewsletter(emailIdData);
+		if(!homePageActions.checkSubscribeSuccessMessageComes()) {
+			sAssert.assertTrue(false,"Newsletter subscription has been failed");
+		}
+	}
+	@DataProvider(name="emailIdData")
+	public Object[][]provideData(){
+		Object[][] arr = new Object[5][1];
+		arr[0][0]="testabc123@gmail.com";
+		arr[1][0]="testabc124@gmail.com";
+		arr[2][0]="testabc125@gmail.com";
+		arr[3][0]="testabc126@gmail.com";
+		arr[4][0]="testabc127@gmail.com";
+		return arr;
+		
+	}
+	@AfterSuite
+	public void tearDown() {
+		driver.close();
+		driver.quit();
+	}
+
+
+}

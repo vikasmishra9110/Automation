@@ -1,0 +1,21 @@
+package nagp.selenium.utils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ExcelUtils {
+public static List<String> getDataOfExcelColumn(String path) throws IOException{
+	File file = new File(path);
+	FileInputStream fis = new FileInputStream(file);
+	XSSFWorkbook workBook = new XSSFWorkbook(fis);
+	XSSFSheet sheet = workBook.getSheetAt(0);
+			for(int i=0;i<sheet.getLastRowNum()-sheet.getFirstRowNum();i++) {
+				sheet.getRow(i).getCell(0).getStringCellValue();
+			}
+}
+}

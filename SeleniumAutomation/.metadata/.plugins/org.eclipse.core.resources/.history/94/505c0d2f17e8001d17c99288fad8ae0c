@@ -1,0 +1,154 @@
+package nagp.selenium.tests;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import nagp.selenium.pageactions.ApparelPageActions;
+import nagp.selenium.pageactions.CreateAccountPageActions;
+import nagp.selenium.pageactions.HomePageAction;
+import nagp.selenium.pageactions.ShipingPageActions;
+import nagp.selenium.utils.BaseTest;
+import nagp.selenium.utils.ExcelUtils;
+import nagp.selenium.utils.PropertyReader;
+import nagp.selenium.utils.SeleniumUtils;
+
+public class HomePageTest extends BaseTest {
+	HomePageAction homePageActions;
+	CreateAccountPageActions createAccountPageActions;
+	ApparelPageActions apparelPageActions;
+	ShipingPageActions shipingPageActions;
+	SoftAssert sAssert;
+
+	@BeforeTest(alwaysRun = true)
+	public void launchActivity() {
+		launchBrowser();
+		homePageActions = new HomePageAction(driver);
+		createAccountPageActions = new CreateAccountPageActions(driver);
+		apparelPageActions = new ApparelPageActions(driver);
+		shipingPageActions = new ShipingPageActions(driver);
+		driver.get(PropertyReader.getValue("appUrl"));
+		sAssert = new SoftAssert();
+		driver.manage().window().maximize();
+	}
+
+	@Test(description = "check logo on home page", priority = 1,groups= {"basic"})
+	public void checkHomePageLogoPresent() throws IOException {
+		boolean flag = homePageActions.checkLogoHomePage();
+		if (!false) {
+			SeleniumUtils.takeScreenshotMethod(driver, "checkHomePageLogoPresent");
+			sAssert.assertTrue(false, "Home page logo is not present");
+			sAssert.assertAll();
+		}
+	}
+
+	@Test(description = "Create new user on the account", priority = 2, groups = { "Sanity", "Parallel" })
+	@Parameters({ "firstName", "lastName", "email", "password" })
+	public void createNewUser(String firstName, String lastName, String email, String password) throws IOException {
+		createAccountPageActions.createNewUser(firstName, lastName, email, password, false);
+		boolean flag = createAccountPageActions.checkCreateNewAccountConfirmationMessage();
+		if (!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "createNewUser");
+			sAssert.assertTrue(false, "Create new user has been failed");
+			sAssert.assertAll();
+		}
+	}
+
+	@Test(description = "Validate logout functionality", priority = 7)
+	public void validateLogout() throws IOException {
+		homePageActions.logout();
+		boolean flag = homePageActions.checkSignOutSuccessMessage();
+		if (!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validateLogout");
+			sAssert.assertTrue(false, "Logout has been failed");
+			sAssert.assertAll();
+		}
+
+	}
+
+	@Test(description = "Create new user for an existing user", priority = 8)
+	@Parameters({ "firstName", "lastName", "email", "password" })
+	public void createNewUserForExistingUser(String firstName, String lastName, String email, String password)
+			throws IOException {
+		createAccountPageActions.createNewUser(firstName, lastName, email, password, true);
+		boolean flag = createAccountPageActions.checkErrorMessageForExistingUserAccountCreation();
+		if (!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "createNewUserForExistingUser");
+			sAssert.assertTrue(false, "Error message for already existing account did not come");
+			sAssert.assertAll();
+		}
+
+	}
+
+	@Test(description = "This test is to validate the newsletter subscription for list of emailid", priority = 3, dataProvider = "emailIdData")
+	public void subscribeNewsletter(String emailIdData) throws IOException {
+		homePageActions.subscribeNewsletter(emailIdData);
+		if (!homePageActions.checkSubscribeSuccessMessageComes()) {
+			SeleniumUtils.takeScreenshotMethod(driver, "subscribeNewsletter");
+			sAssert.assertTrue(false, "Newsletter subscription has been failed");
+			sAssert.assertAll();
+		}
+	}
+
+	@Test(description = "This method is to validate menu items on home page", priority = 4)
+	public void validateMenuItems() throws IOException {
+		if (!homePageActions.getMenuItems(PropertyReader.getValue("TestDataFileName"))) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validateMenuItems");
+			sAssert.assertTrue(false, "Menu items are not correct");
+			sAssert.assertAll();
+		}
+	}
+
+	@Test(description = "This method is to validate the purchase of an apparel", priority = 5, groups = { "Sanity" })
+	public void validatePurchaseApparel() throws IOException {
+		homePageActions.launchJacketsPage();
+		apparelPageActions.selectApparel();
+		apparelPageActions.completeOrder();
+		shipingPageActions.fillShipingAddress();
+		if (!apparelPageActions.isPlaceOrderSuccessMessageComes()) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validatePurchaseApparel");
+			sAssert.assertTrue(false, "No sucess message on apparel order place");
+			sAssert.assertAll();
+		}
+	}
+
+	@Test(description = "This test is to validate search bar on home page", priority = 6)
+	public void validateSearchBar() throws IOException {
+		boolean flag1 = homePageActions.searchApparelSearchBar(PropertyReader.getValue("searchApparel")) != 0 ? true
+				: false;
+		if (!flag1) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validateSearchBar");
+			Assert.assertTrue(false, "Auto suggestion on searh bar is empty");
+		}
+		boolean flag2 = homePageActions.landOnSearchResultPage() ? true : false;
+		if (!flag2) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validateSearchBar");
+			sAssert.assertTrue(false, "landing on search result page has failed");
+			sAssert.assertAll();
+		}
+	}
+
+	@DataProvider(name = "emailIdData")
+	public Object[][] provideData() throws IOException {
+		Object[][] arr = new Object[5][1];
+		List<String> testData = ExcelUtils.getDataOfExcelColumn(System.getProperty("user.dir") + "//"
+				+ PropertyReader.getValue("TestDataPath") + "//" + PropertyReader.getValue("TestDataFileName"), 0, 1);
+		for (int i = 0; i < testData.size(); i++) {
+			arr[i][0] = testData.get(i);
+		}
+		return arr;
+	}
+
+	@AfterSuite
+	public void tearDown() {
+		driver.close();
+		driver.quit();
+	}
+}

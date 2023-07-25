@@ -1,0 +1,31 @@
+# TestNG Selenium Project Setup and Execution with Maven
+This is a TestNG-based Selenium project that uses Maven for build and dependency management. The project includes the following features:
+
+`1.Retry execution of failed test cases using IretryAnalyzer`
+
+`2.Different TestNG.xml files for grouping tests and Parallel test execution`
+
+`Logger using Log4j which is providing logs in console and in file and configuration is managed from log4j2.xml`
+
+`Test data from config.properties file`
+
+`Separate Selenium Utils class`
+
+`Test results, logs, and screenshots are stored in separate folders. Latest suite execution result will be store in CurrentTestResultData and`
+`Previous suite execution results will be archived in ArchivedDataFolder folder`
+
+`Cross browser execution by proving browser name in config.properties file`
+
+`Setting the global wait time from config.properties file`
+
+`Project having ExcelUtils class to facilitate the reading test data from excel file`
+
+`TestNg Listeners are implemented to generate the Extent report`
+
+`Property reader class is provided in order to read properties from config.properties file`
+
+# Setup
+To set up the project, follow these steps:
+
+
+

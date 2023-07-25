@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="12" passed="12" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-05-01T18:46:06 IST" name="Magento" finished-at="2023-05-01T18:47:27 IST" duration-ms="80582">
+    <groups>
+      <group name="Sanity">
+        <method signature="HomePageTest.createNewUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:nagp.selenium.tests.HomePageTest@63fdab07]" name="createNewUser" class="nagp.selenium.tests.HomePageTest"/>
+        <method signature="HomePageTest.validatePurchaseApparel()[pri:5, instance:nagp.selenium.tests.HomePageTest@63fdab07]" name="validatePurchaseApparel" class="nagp.selenium.tests.HomePageTest"/>
+      </group> <!-- Sanity -->
+      <group name="Parallel">
+        <method signature="HomePageTest.createNewUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:nagp.selenium.tests.HomePageTest@63fdab07]" name="createNewUser" class="nagp.selenium.tests.HomePageTest"/>
+      </group> <!-- Parallel -->
+      <group name="basic">
+        <method signature="HomePageTest.checkHomePageLogoPresent()[pri:1, instance:nagp.selenium.tests.HomePageTest@63fdab07]" name="checkHomePageLogoPresent" class="nagp.selenium.tests.HomePageTest"/>
+      </group> <!-- basic -->
+    </groups>
+    <test started-at="2023-05-01T18:46:06 IST" name="MagentoTest" finished-at="2023-05-01T18:47:27 IST" duration-ms="80582">
+      <class name="nagp.selenium.tests.HomePageTest">
+        <test-method is-config="true" signature="launchActivity()[pri:0, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:06 IST" name="launchActivity" finished-at="2023-05-01T18:46:16 IST" duration-ms="9492" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchActivity -->
+        <test-method signature="checkHomePageLogoPresent()[pri:1, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:16 IST" name="checkHomePageLogoPresent" description="check logo on home page" finished-at="2023-05-01T18:46:16 IST" duration-ms="70" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkHomePageLogoPresent -->
+        <test-method signature="createNewUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:16 IST" name="createNewUser" description="Create new user on the account" finished-at="2023-05-01T18:46:21 IST" duration-ms="5556" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testuser1]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testlastname123]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[test0002email1]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[@Mypassword91]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createNewUser -->
+        <test-method signature="subscribeNewsletter(java.lang.String)[pri:3, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:22 IST" name="subscribeNewsletter" description="This test is to validate the newsletter subscription for list of emailid" data-provider="emailIdData" finished-at="2023-05-01T18:46:26 IST" duration-ms="3831" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testabc123]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- subscribeNewsletter -->
+        <test-method signature="subscribeNewsletter(java.lang.String)[pri:3, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:26 IST" name="subscribeNewsletter" description="This test is to validate the newsletter subscription for list of emailid" data-provider="emailIdData" finished-at="2023-05-01T18:46:30 IST" duration-ms="4090" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testabc124]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- subscribeNewsletter -->
+        <test-method signature="subscribeNewsletter(java.lang.String)[pri:3, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:30 IST" name="subscribeNewsletter" description="This test is to validate the newsletter subscription for list of emailid" data-provider="emailIdData" finished-at="2023-05-01T18:46:34 IST" duration-ms="3718" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testabc125]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- subscribeNewsletter -->
+        <test-method signature="subscribeNewsletter(java.lang.String)[pri:3, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:34 IST" name="subscribeNewsletter" description="This test is to validate the newsletter subscription for list of emailid" data-provider="emailIdData" finished-at="2023-05-01T18:46:37 IST" duration-ms="3346" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testabc126]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- subscribeNewsletter -->
+        <test-method signature="subscribeNewsletter(java.lang.String)[pri:3, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:37 IST" name="subscribeNewsletter" description="This test is to validate the newsletter subscription for list of emailid" data-provider="emailIdData" finished-at="2023-05-01T18:46:40 IST" duration-ms="3153" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testabc127]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- subscribeNewsletter -->
+        <test-method signature="validateMenuItems()[pri:4, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:40 IST" name="validateMenuItems" description="This method is to validate menu items on home page" finished-at="2023-05-01T18:46:40 IST" duration-ms="248" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateMenuItems -->
+        <test-method signature="validatePurchaseApparel()[pri:5, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:46:40 IST" name="validatePurchaseApparel" description="This method is to validate the purchase of an apparel" finished-at="2023-05-01T18:47:11 IST" duration-ms="30808" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validatePurchaseApparel -->
+        <test-method signature="validateSearchBar()[pri:6, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:47:11 IST" name="validateSearchBar" description="This test is to validate search bar on home page" finished-at="2023-05-01T18:47:16 IST" duration-ms="5291" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateSearchBar -->
+        <test-method signature="validateLogout()[pri:7, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:47:16 IST" name="validateLogout" description="Validate logout functionality" finished-at="2023-05-01T18:47:19 IST" duration-ms="2703" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateLogout -->
+        <test-method signature="createNewUserForExistingUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:8, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:47:19 IST" name="createNewUserForExistingUser" description="Create new user for an existing user" finished-at="2023-05-01T18:47:24 IST" duration-ms="5190" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testuser1]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testlastname123]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[test0002email1]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[@Mypassword91]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createNewUserForExistingUser -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:nagp.selenium.tests.HomePageTest@63fdab07]" started-at="2023-05-01T18:47:24 IST" name="tearDown" finished-at="2023-05-01T18:47:27 IST" duration-ms="2188" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- nagp.selenium.tests.HomePageTest -->
+    </test> <!-- MagentoTest -->
+  </suite> <!-- Magento -->
+</testng-results>

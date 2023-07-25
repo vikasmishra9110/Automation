@@ -1,0 +1,63 @@
+package nagp.selenium.pageactions;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
+import nagp.selenium.pageobjects.CreateAccountPageObjects;
+import nagp.selenium.pageobjects.HomePageObjects;
+import nagp.selenium.utils.BaseTest;
+import nagp.selenium.utils.PropertyReader;
+import nagp.selenium.utils.SeleniumUtils;
+
+public class CreateAccountPageActions {
+WebDriver driver;
+CreateAccountPageObjects createAccountPageObjects;
+private static final Logger LOGGER= LogManager.getLogger(CreateAccountPageActions.class);
+public CreateAccountPageActions(WebDriver driver) {
+	this.driver=driver;
+	createAccountPageObjects=PageFactory.initElements(driver,CreateAccountPageObjects.class);
+}
+
+/**
+ * This method is to create a new user
+ * @param firstName
+ * @param lastName
+ * @param email
+ * @param password
+ */
+public void createNewUser(String firstName,String lastName,String email,String password,boolean existingUser) {
+	SeleniumUtils.click(driver, createAccountPageObjects.createAccountLink);
+	LOGGER.info("First name of new user is : "+firstName);
+	SeleniumUtils.setValue(driver, createAccountPageObjects.firstName, firstName);
+	LOGGER.info("First name of new user is : "+lastName);
+	SeleniumUtils.setValue(driver, createAccountPageObjects.lastName, lastName);
+	
+	if(existingUser) {
+		LOGGER.info("First name of new user is : "+PropertyReader.getValue("ExistingUserEmailId"));
+		SeleniumUtils.setValue(driver, createAccountPageObjects.emailId, PropertyReader.getValue("ExistingUserEmailId"));
+	} 
+	else {
+		double randomValue=Math.random();
+		LOGGER.info("First name of new user is : "+email+randomValue+"@gmail.com");
+		SeleniumUtils.setValue(driver, createAccountPageObjects.emailId, email+randomValue+"@gmail.com");
+	}
+	
+	SeleniumUtils.setValue(driver, createAccountPageObjects.password, password);
+	SeleniumUtils.setValue(driver, createAccountPageObjects.confirmPassword, password);
+	SeleniumUtils.click(driver, createAccountPageObjects.createAccountButton);
+}
+/**
+ *  @return true if success message on creating new account comes
+ */
+public boolean checkCreateNewAccountConfirmationMessage() {
+	return SeleniumUtils.isElementPresent(driver, createAccountPageObjects.createNewAccountConfirmationMessage);
+}
+/**
+ * @return true if message for already account exists message comes
+ */
+public boolean checkErrorMessageForExistingUserAccountCreation() {
+	return SeleniumUtils.isElementPresent(driver, createAccountPageObjects.alreadyAccountExistsMessage);
+}
+}

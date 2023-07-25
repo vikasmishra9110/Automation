@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Magento">
+	<listeners>
+		<listener class-name="nagp.selenium.utils.ListenersImplementation" />
+	</listeners>
+	
+	<test name="MagentoTest">
+		<groups>
+			<run>
+				<include name="Sanity"/>
+			</run>
+		</groups>
+		<parameter name="firstName" value="testuser1" />
+		<parameter name="lastName" value="testlastname123" />
+		<parameter name="email" value="test0002email1" />
+		<parameter name="password" value="@Mypassword91" />
+		<classes>
+			<class name="nagp.selenium.tests.HomePageTest" />
+		</classes>
+	</test>
+</suite>

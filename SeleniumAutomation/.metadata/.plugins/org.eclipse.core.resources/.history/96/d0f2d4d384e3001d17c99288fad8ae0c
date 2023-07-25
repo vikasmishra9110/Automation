@@ -1,0 +1,39 @@
+package nagp.selenium.utils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import nagp.selenium.pageactions.HomePageAction;
+
+public class ExcelUtils {
+	private static final Logger LOGGER = LogManager.getLogger(ExcelUtils.class);
+
+	public static List<String> getDataOfExcelColumn(String path, int column) throws IOException {
+		ArrayList<String> data = null;
+		File file;
+		FileInputStream fis = null;
+		try {
+			data = new ArrayList<String>();
+			fis = new FileInputStream(new File(path));
+			XSSFWorkbook workBook = new XSSFWorkbook(fis);
+			XSSFSheet sheet = workBook.getSheetAt(0);
+			for (Row row : sheet) {
+				data.add(row.getCell(column).getStringCellValue());
+			}
+		} catch (Exception e) {
+			LOGGER.error("Some error encountered while fetching data from excel", e);
+		} finally {
+			fis.close();
+		}
+		return data;
+	}
+}

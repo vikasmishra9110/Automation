@@ -1,0 +1,165 @@
+package nagp.selenium.utils;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import nagp.selenium.pageactions.CreateAccountPageActions;
+
+public class SeleniumUtils {
+	private static final int waitDuration = 10;
+	private static final Logger LOGGER = LogManager.getLogger(CreateAccountPageActions.class);
+
+	/**
+	 * This method is to click an element
+	 * 
+	 * @param driver
+	 * @param element
+	 */
+	public static void click(WebDriver driver, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.click();
+	}
+
+	/**
+	 * This method is to set value in input box
+	 * 
+	 * @param driver
+	 * @param element
+	 * @param value
+	 */
+	public static void setValue(WebDriver driver, WebElement element, String value) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.sendKeys(value);
+	}
+
+	/**
+	 * @param driver
+	 * @param element
+	 * @return true if element is present and visible on page
+	 */
+	public static boolean isElementPresent(WebDriver driver, WebElement element) {
+		boolean flag = false;
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		try {
+			if ((wait.until(ExpectedConditions.visibilityOf(element)) != null) && element.isDisplayed()) {
+				flag = true;
+			}
+		} catch (TimeoutException | NoSuchElementException e) {
+			flag = false;
+			LOGGER.error("Error found in checking elemnet present or not ", e);
+		}
+		return flag;
+	}
+
+	/**
+	 * This method is to take screenshot
+	 * 
+	 * @param driver
+	 * @param name
+	 * @return
+	 * @throws IOException
+	 */
+	public static String takeScreenshotMethod(WebDriver driver, String name) throws IOException {
+		TakesScreenshot takescreenshot = ((TakesScreenshot) driver);
+		File srcFile = takescreenshot.getScreenshotAs(OutputType.FILE);
+		String destinationPath = System.getProperty("user.dir") + "\\CurrentTestResultData\\" + name + ".png";
+		File descFile = new File(destinationPath);
+		FileUtils.copyFile(srcFile, descFile);
+		return destinationPath;
+	}
+
+	/**
+	 * This method is to scroll to webelement
+	 * 
+	 * @param driver
+	 * @param element
+	 */
+	public static void scrollToWebElement(WebDriver driver, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		wait.until(ExpectedConditions.visibilityOf(element));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();", element);
+		LOGGER.info("Scroll to webelement has been successfull");
+	}
+	/**
+	 * This method is to get text of all webelements
+	 * @param driver
+	 * @param webElements
+	 * @return text of all webelements
+	 */
+	public static List<String> getDataFromList(WebDriver driver,List<WebElement> webElements){
+		ArrayList<String> data = new ArrayList<String>();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		wait.until(ExpectedConditions.visibilityOfAllElements(webElements));
+		for(WebElement element :webElements ) {
+			data.add(element.getText());
+		}
+		return data;
+	}
+	/**
+	 * This method is to mouse hover webelement
+	 * @param driver
+	 * @param element
+	 */
+	public static void mouseHoverElement(WebDriver driver, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		wait.until(ExpectedConditions.visibilityOf(element));
+		new Actions(driver).moveToElement(element).perform();
+	}
+	/**
+	 * This method is to wait till all elements are visible
+	 * @param driver
+	 * @param webElements
+	 */
+	public static void waitForVisibilityOfElements(WebDriver driver,List<WebElement> webElements) {
+		ArrayList<String> data = new ArrayList<String>();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		wait.until(ExpectedConditions.visibilityOfAllElements(webElements));
+	}
+	/**
+	 * This method is to puase execution for a given time
+	 * @param time
+	 */
+	public static void  pause(int time) {
+		try {
+		Thread.sleep(time);}
+		catch(Exception e) {
+			LOGGER.error("Error countered in thread sleep",e);
+		}
+	}
+	/**
+	 * This method is to click webelement using java script executor
+	 * @param driver
+	 * @param element
+	 */
+	public static void clickElementByJse(WebDriver driver, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitDuration));
+		wait.until(ExpectedConditions.visibilityOf(element));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", element);
+		LOGGER.info("Scroll to webelement has been successfull");	
+	}
+	public void selectByText(WebDriver driver, WebElement element,String value) {
+		
+	}
+}

@@ -1,0 +1,141 @@
+package nagp.selenium.tests;
+
+import java.io.IOException;
+
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+import org.testng.asserts.SoftAssert;
+
+import nagp.selenium.pageactions.ApparelPageActions;
+import nagp.selenium.pageactions.CreateAccountPageActions;
+import nagp.selenium.pageactions.HomePageAction;
+import nagp.selenium.pageactions.ShipingPageActions;
+import nagp.selenium.utils.BaseTest;
+import nagp.selenium.utils.PropertyReader;
+import nagp.selenium.utils.SeleniumUtils;
+
+public class HomePageTest extends BaseTest {
+	HomePageAction homePageActions;
+	CreateAccountPageActions createAccountPageActions;
+	ApparelPageActions apparelPageActions;
+	ShipingPageActions shipingPageActions;
+	SoftAssert sAssert;
+	@BeforeSuite(alwaysRun = true)
+	public void launchActivity() {
+		launchBrowser();
+		homePageActions=new HomePageAction(driver);
+		createAccountPageActions=new CreateAccountPageActions(driver);
+		apparelPageActions=new ApparelPageActions(driver);
+		shipingPageActions	=new ShipingPageActions(driver);
+		driver.get(PropertyReader.getValue("appUrl"));
+		sAssert=	new SoftAssert();
+	}
+	@Test(description = "check logo on home page", priority   = 9)
+	public void checkHomePageLogoPresent() throws IOException {
+		boolean flag = homePageActions.checkLogoHomePage();
+		if(!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "checkHomePageLogoPresent");
+			sAssert.assertTrue(false,"Home page logo is not present");
+			sAssert.assertAll();
+		}
+	}
+	@Test(description = "Create new user on the account",priority = 2,groups = {"Sanity"})
+	@Parameters({"firstName","lastName","email","password"})
+	public void createNewUser(String firstName,String lastName,String email, String password) throws IOException {
+		createAccountPageActions.createNewUser(firstName, lastName, email, password,false);
+		boolean flag = createAccountPageActions.checkCreateNewAccountConfirmationMessage();
+		if(!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "createNewUser");
+			sAssert.assertTrue(false,"Create new user has been failed");
+			sAssert.assertAll();
+		}
+	}
+	@Test(description = "Create new user for an existing user",priority = 7)
+	@Parameters({"firstName","lastName","email","password"})
+	public void validateLogout() {
+		homePageActions.logout();
+		boolean flag = createAccountPageActions.checkErrorMessageForExistingUserAccountCreation();
+		if(!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "createNewUserForExistingUser");
+			sAssert.assertTrue(false,"Error message for already existing account did not come");
+			sAssert.assertAll();
+		}
+		
+	}
+	@Test(description = "Create new user for an existing user",priority = 8)
+	@Parameters({"firstName","lastName","email","password"})
+	public void createNewUserForExistingUser(String firstName,String lastName,String email, String password) throws IOException {
+		homePageActions.logout();
+		createAccountPageActions.createNewUser(firstName, lastName, email, password,true);
+		boolean flag = createAccountPageActions.checkErrorMessageForExistingUserAccountCreation();
+		if(!flag) {
+			SeleniumUtils.takeScreenshotMethod(driver, "createNewUserForExistingUser");
+			sAssert.assertTrue(false,"Error message for already existing account did not come");
+			sAssert.assertAll();
+		}
+		
+	}
+	@Test(description = "This test is to validate the newsletter subscription for list of emailid",priority = 4,dataProvider = "emailIdData")
+	public void subscribeNewsletter(String emailIdData) throws IOException {
+		homePageActions.subscribeNewsletter(emailIdData);
+		if(!homePageActions.checkSubscribeSuccessMessageComes()) {
+			SeleniumUtils.takeScreenshotMethod(driver, "subscribeNewsletter");
+			sAssert.assertTrue(false,"Newsletter subscription has been failed");
+			sAssert.assertAll();
+		}
+	}
+	@Test(description = "This method is to validate menu items on home page", priority = 5)
+	public void validateMenuItems() throws IOException {
+		if(!homePageActions.getMenuItems("LUMA Test.xlsx")) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validateMenuItems");
+			sAssert.assertTrue(false,"Menu items are not correct");
+			sAssert.assertAll();
+		}
+	}
+	@Test(description = "This method is to validate the purchase of an apparel", priority = 6,groups = {"Sanity"})
+	public void validatePurchaseApparel() throws IOException  {
+		homePageActions.launchJacketsPage();
+		apparelPageActions.selectApparel();
+		apparelPageActions.completeOrder();
+		shipingPageActions.fillShipingAddress();
+		if(!apparelPageActions.isPlaceOrderSuccessMessageComes()) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validatePurchaseApparel");
+			sAssert.assertTrue(false,"No sucess message on apparel order place");
+			sAssert.assertAll();
+		}
+	}
+	@Test(description = "This test is to validate search bar on home page",priority = 1)
+	public void validateSearchBar() throws IOException {
+		boolean flag1 = homePageActions.searchApparelSearchBar(PropertyReader.getValue("searchApparel"))!=0?true:false;
+		if(!flag1) {
+			SeleniumUtils.takeScreenshotMethod(driver, "validateSearchBar");
+			Assert.assertTrue(false,"Auto suggestion on searh bar is empty");
+		}
+	
+	sAssert.assertTrue(homePageActions.landOnSearchResultPage(),"landing on search result page has failed");
+	}
+	@DataProvider(name="emailIdData")
+	public Object[][]provideData(){
+		Object[][] arr = new Object[5][1];
+		arr[0][0]="testabc123";
+		arr[1][0]="testabc124";
+		arr[2][0]="testabc125";
+		arr[3][0]="testabc126";
+		arr[4][0]="testabc127";
+		return arr;
+		
+	}
+	@AfterSuite
+	public void tearDown() {
+	//driver.close();
+//	driver.quit();
+	}
+
+
+}

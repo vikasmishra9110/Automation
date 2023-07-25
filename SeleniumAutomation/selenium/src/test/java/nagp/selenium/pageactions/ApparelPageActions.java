@@ -1,0 +1,74 @@
+package nagp.selenium.pageactions;
+
+import static org.testng.Assert.fail;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
+import nagp.selenium.pageobjects.ApparelPageObjects;
+import nagp.selenium.pageobjects.HomePageObjects;
+import nagp.selenium.utils.BaseTest;
+import nagp.selenium.utils.ExcelUtils;
+import nagp.selenium.utils.PropertyReader;
+import nagp.selenium.utils.SeleniumUtils;
+
+public class ApparelPageActions {
+	WebDriver driver;
+	ApparelPageObjects apparelPageObjects;
+	private static final Logger LOGGER = LogManager.getLogger(ApparelPageActions.class);
+
+	public ApparelPageActions(WebDriver driver) {
+		this.driver = driver;
+		apparelPageObjects = PageFactory.initElements(driver, ApparelPageObjects.class);
+	}
+
+	/**
+	 * This method is to select apparel with color and size
+	 */
+	public void selectApparel() {
+		try {
+			LOGGER.info("User going to select apparel");
+			SeleniumUtils.waitForVisibilityOfElements(driver, apparelPageObjects.apparelWithLSize);
+			SeleniumUtils.click(driver, apparelPageObjects.apparelWithLSize.get(0));
+			LOGGER.info("User going to select apparel of Size L");
+			SeleniumUtils.waitForVisibilityOfElements(driver, apparelPageObjects.apparelWithBlueColor);
+			SeleniumUtils.click(driver, apparelPageObjects.apparelWithBlueColor.get(0));
+			LOGGER.info("User going to select apparel of Color Blue");
+			SeleniumUtils.click(driver, apparelPageObjects.addTocartButton);
+			LOGGER.info("User going to selected apparel to cart");
+		} catch (Exception e) {
+			LOGGER.error("Error encounetred while selecting apparel", e);
+			fail();
+		}
+	}
+
+	/**
+	 * This method is to place order
+	 */
+	public void completeOrder() {
+		try {
+			SeleniumUtils.scrollToWebElement(driver, apparelPageObjects.myCart);
+			SeleniumUtils.pause(7000);
+			SeleniumUtils.clickElementByJse(driver, apparelPageObjects.myCart);
+			SeleniumUtils.pause(2000);
+			SeleniumUtils.clickElementByJse(driver, apparelPageObjects.proceedToCheckoutButton);
+		} catch (Exception e) {
+			LOGGER.error("Some error has encounetred while placing order", e);
+			fail();
+		}
+	}
+
+	/**
+	 * @return true if thank you for purchase message comes
+	 */
+	public boolean isPlaceOrderSuccessMessageComes() {
+		return SeleniumUtils.isElementPresent(driver, apparelPageObjects.thankYouForPurchaseMessage);
+	}
+}

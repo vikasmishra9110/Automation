@@ -1,0 +1,14 @@
+package nagp.selenium.pageobjects;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class ShippingPageObjects {
+
+@FindBy(xpath="//*[@name='street[0]']")
+public WebElement streetAddress;
+
+
+}

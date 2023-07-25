@@ -1,0 +1,47 @@
+# TestNG Selenium Project Setup and Execution with Maven
+This is a TestNG-based Selenium project that uses Maven for build and dependency management. The project includes the following features:
+
+`1.Retry execution of failed test cases using IretryAnalyzer`
+
+`2.Different TestNG.xml files for grouping tests and Parallel test execution`
+
+`3.Logger using Log4j which is providing logs in console and in file and configuration is managed from log4j2.xml`
+
+`4.Test data from config.properties file`
+
+`5.Separate Selenium Utils class`
+
+`6.Test results, logs, and screenshots are stored in separate folders. Latest suite execution result will be store in CurrentTestResultData and`
+`Previous suite execution results will be archived in ArchivedDataFolder folder`
+
+`7.Cross browser execution by proving browser name in config.properties file`
+
+`8.Setting the global wait time from config.properties file`
+
+`9.Project having ExcelUtils class to facilitate the reading test data from excel file`
+
+`10.TestNg Listeners are implemented to generate the Extent report`
+
+`11.Property reader class is provided in order to read properties from config.properties file`
+
+# Setup
+To set up the project, follow these steps:
+
+1.Download and extract the project.
+
+2.Open the project in your preferred IDE (e.g., Eclipse, IntelliJ IDEA).
+
+3.Configure your Maven settings in your IDE or in your local Maven installation (if applicable).
+
+4.Import the project as a Maven project.
+
+5.Install the project dependencies by running the following Maven command in the terminal:
+
+`mvn clean install`
+
+# TestNG.xml Files
+The project includes multiple TestNG.xml files in the src\test\java\testsuites folder. These files specify how TestNG should group and execute the tests. To execute a specific TestNG.xml file, use the following Maven command:
+mvn clean test -DsuiteXmlFile=src\test\java\testsuites\testng-file.xml
+
+
+

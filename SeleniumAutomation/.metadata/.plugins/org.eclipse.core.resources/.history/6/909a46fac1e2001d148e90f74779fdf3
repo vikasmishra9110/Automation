@@ -1,0 +1,17 @@
+package nagp.selenium.pageobjects;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class HomePageObjects {
+@FindBy(xpath="//a[@class='logo']")
+public WebElement logo;
+@FindBy(xpath="(//button[@data-action='customer-menu-toggle'])[1]")
+public WebElement loggedInUserLink;
+@FindBy(xpath="(//a[contains(text(),'Sign Out')])[1]")
+public WebElement signOutButton;
+@FindBy(id="newsletter")
+public WebElement subscriptionEmailBox;
+@FindBy(xpath="//span[text()='Subscribe']")
+public WebElement subscribeButton;
+}

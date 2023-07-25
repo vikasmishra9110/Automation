@@ -1,0 +1,6 @@
+Browser=Chrome
+appUrl=https://magento.softwaretestingboard.com/
+TestDataPath=\\src\\test\\resources\\testdata
+ShipingStreetAddress=Delhi Road
+City=Ghaziabad
+PostalCode=201204
