@@ -114,6 +114,9 @@
 						<seleniumGridUrl>${seleniumGridUrl}</seleniumGridUrl>
 						<seleniumBrowser>${seleniumBrowser}</seleniumBrowser>
 					</systemPropertyVariables>
+					<suiteXmlFiles>
+                    <suiteXmlFile>testrunAll.xml</suiteXmlFile>
+                </suiteXmlFiles>
 					<includes>
 						<include>testrunAll.xml</include>
 					</includes>
