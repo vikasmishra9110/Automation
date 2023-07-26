@@ -117,9 +117,7 @@
 					<suiteXmlFiles>
                     <suiteXmlFile>src\test\java\testsuites\testrunGrouping.xml</suiteXmlFile>
                 </suiteXmlFiles>
-					<includes>
-						<include>testrunAll.xml</include>
-					</includes>
+					
 					<!--<parallel></parallel>
                     <threadCount>4</threadCount>
                     <forkCount>4</forkCount>
