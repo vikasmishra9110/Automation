@@ -115,7 +115,7 @@
 						<seleniumBrowser>${seleniumBrowser}</seleniumBrowser>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-                    <suiteXmlFile>src\test\java\testsuites\testrunAll.xml</suiteXmlFile>
+                    <suiteXmlFile>src\test\java\testsuites\testrunGrouping.xml</suiteXmlFile>
                 </suiteXmlFiles>
 					<includes>
 						<include>testrunAll.xml</include>
