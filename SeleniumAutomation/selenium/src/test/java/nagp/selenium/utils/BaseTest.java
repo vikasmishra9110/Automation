@@ -10,6 +10,9 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.apache.logging.log4j.Logger;
 
 public class BaseTest {
@@ -34,6 +37,7 @@ public class BaseTest {
 			// chromeOptions.addArguments("--window-size=1920,1080");
 			chromeOptions.addArguments("start-maximized");
 			chromeOptions.addArguments("--remote-allow-origins=*");
+			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver(chromeOptions);
 			LOGGER.info("Selected browser is Chrome");
 			break;

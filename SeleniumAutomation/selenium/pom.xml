@@ -92,10 +92,10 @@
             <version>${owner.version}</version>
         </dependency>-->
 		<dependency>
-    <groupId>io.github.bonigarcia</groupId>
-    <artifactId>webdrivermanager</artifactId>
-    <version>5.3.0</version>
-</dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>5.3.0</version>
+		</dependency>
 		<!-- <dependency>
             <groupId>io.testsmith</groupId>
             <artifactId>webdriver-event-listeners</artifactId>
@@ -120,9 +120,8 @@
 						<seleniumBrowser>${seleniumBrowser}</seleniumBrowser>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-                    <suiteXmlFile>src\test\java\testsuites\testrunGrouping.xml</suiteXmlFile>
-                </suiteXmlFiles>
-					
+						<suiteXmlFile>src\test\java\testsuites\testrunGrouping.xml</suiteXmlFile>
+					</suiteXmlFiles>
 					<!--<parallel></parallel>
                     <threadCount>4</threadCount>
                     <forkCount>4</forkCount>
