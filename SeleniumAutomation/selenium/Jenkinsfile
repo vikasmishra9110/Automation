@@ -12,7 +12,7 @@ pipeline {
         stage('Run Test') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'main', url: 'https://github.com/vikasmishra9110/Automation.git'
+              //  git branch: 'main', url: 'https://github.com/vikasmishra9110/Automation.git'
                 
                 // Change directory and run Maven on a windows agent.
                 bat '''

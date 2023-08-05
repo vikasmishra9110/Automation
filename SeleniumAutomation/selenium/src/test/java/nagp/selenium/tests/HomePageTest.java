@@ -135,6 +135,11 @@ public class HomePageTest extends BaseTest {
 			sAssert.assertAll();
 		}
 	}
+	@Test(description = "this is the simple test for sanity purpose",  groups = { "Sanity"})
+	public void checkSimpleTest() {
+		System.out.println("This is simple test for sanity");
+		Assert.assertTrue(true);
+	}
 
 	@DataProvider(name = "emailIdData")
 	public Object[][] provideData() throws IOException {
@@ -146,7 +151,7 @@ public class HomePageTest extends BaseTest {
 		}
 		return arr;
 	}
-
+    
 	@AfterTest(alwaysRun = true)
 	public void tearDown() {
 		driver.close();
