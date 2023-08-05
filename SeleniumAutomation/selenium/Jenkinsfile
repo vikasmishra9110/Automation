@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+
+    options {
+        timeout(time: 9, unit: 'HOURS')   // timeout on whole pipeline job
+    }
+ tools {
+        
+        maven "MavenSystem"
+    }
+    stages {
+        stage('Run Test') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'main', url: 'https://github.com/vikasmishra9110/Automation.git'
+                
+                // Change directory and run Maven on a windows agent.
+                bat '''
+                    cd SeleniumAutomation/selenium
+                    mvn clean install
+                '''
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('Test_Sonar') {
+                    bat '''
+                        cd SeleniumAutomation/selenium
+                        mvn sonar:sonar
+                    '''
+                }
+            }
+        }
+         stage('Publish to artifactory') {
+            steps {
+                rtMavenDeployer(
+                    id:'deployer',
+                    serverId:'vikasjfrogart',
+                    releaseRepo:'samplerepo',
+                    snapshotRepo:'samplerepo'
+                    )
+                    rtMavenRun(
+                        pom:'SeleniumAutomation/selenium/pom.xml',
+                        goals:'clean install',
+                        deployerId:'deployer'
+                        )
+                        rtPublishBuildInfo(
+                            serverId:'vikasjfrogart'
+                            )
+               
+            }
+        }
+
+    }
+
+    post {
+        
+        always {
+            script {
+                if (currentBuild.result == 'UNSTABLE') {
+                    currentBuild.result = 'FAILURE'
+                }
+            }
+           // step([$class: 'Test_Sonar', tool: 'SonarScanner', instance: 'Test_Sonar', project: [name: 'NAGP_PIPELINE_JOB', key: 'YourProjectKey', version: '1.0']])
+        }
+    }
+}
